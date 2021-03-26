@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/app_bar_main"
+	android:background="@drawable/limitedmap">
+		<TextView 
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:text="lat"
+		android:id="@+id/latitude"/>
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_toRightOf="@id/latitude"
+		android:text="e"
+		android:id="@+id/latPuller"/>
+	<TextView 
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:layout_below="@id/latPuller"
+		android:text="lon"
+		android:id="@+id/longitude"/>
+		<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_toRightOf="@id/longitude"
+		android:text="e"
+		android:layout_below="@id/latPuller"
+		android:id="@+id/longPuller"/>
+
+		<TextView 
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:layout_below="@id/longitude"
+		android:text="you are closest to"
+		android:id="@+id/altimeter"/>
+		<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="e"
+		android:layout_toRightOf="@id/altimeter"
+		android:layout_below="@id/longPuller"
+		android:id="@+id/altPuller"/>
+	<ImageView
+		android:src="@drawable/burriedTreasure"
+		android:contentDescription="Where User Is"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/altPuller"
+		android:id="@+id/youAreHere" />
+	<ImageView
+		android:src="@drawable/o"
+		android:contentDescription="Destination"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/youAreHere"
+		android:id="@+id/hereYouGo" />
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tooltipText="hello"
+        android:id="@+id/spinner1" />
+
+</RelativeLayout>
