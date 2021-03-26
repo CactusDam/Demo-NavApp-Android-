@@ -65,7 +65,6 @@
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:tooltipText="hello"
         android:id="@+id/spinner1" />
 
 </RelativeLayout>

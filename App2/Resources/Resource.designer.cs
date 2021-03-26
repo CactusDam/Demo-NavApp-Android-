@@ -604,7 +604,7 @@ namespace App2
 		{
 			
 			// aapt resource value: 0x7F030000
-			public const int planets_array = 2130903040;
+			public const int RoomsOnMap = 2130903040;
 			
 			static Array()
 			{
@@ -4936,7 +4936,7 @@ namespace App2
 			public const int path_password_strike_through = 2131689519;
 			
 			// aapt resource value: 0x7F0F0030
-			public const int planet_prompt = 2131689520;
+			public const int room_prompt = 2131689520;
 			
 			// aapt resource value: 0x7F0F0031
 			public const int search_menu_title = 2131689521;

@@ -17,16 +17,15 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 
-  <string name="planet_prompt">Choose a planet</string>
-  <string-array name="planets_array">
-    <item>Mercury</item>
-    <item>Venus</item>
-    <item>Earth</item>
-    <item>Mars</item>
-    <item>Jupiter</item>
-    <item>Saturn</item>
-    <item>Uranus</item>
-    <item>Neptune</item>
+  <string name="room_prompt">Choose a Room</string>
+  <string-array name="RoomsOnMap">
+    <item>"3107"</item>
+    <item>"3147"</item>
+    <item>Zimmer</item>
+    <item>"Computer Lab"</item>
+    <item>"Sculpture/3-D"</item>
+    <item>"3122"</item>
+    <item>"Price"</item>
   </string-array>
 
 </resources>

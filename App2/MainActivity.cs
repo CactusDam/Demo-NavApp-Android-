@@ -62,8 +62,14 @@ namespace App2
             item4.Longitude = -84.56840;
             RoomNames.Add("Sculpture/3-D");
             Rooms.Add(item4);
-
-            destination = item1;
+            Xamarin.Essentials.Location item5 = new Xamarin.Essentials.Location();
+            item5.Latitude = 39.022429;
+            item5.Longitude = -84.5683206;
+            RoomNames.Add("3122");
+            Xamarin.Essentials.Location item6 = new Xamarin.Essentials.Location();
+            item6.Latitude = 39.02329186;
+            item6.Longitude = -84.5681324;
+            RoomNames.Add("Professor Price's Office");
 
             //theta
             Xamarin.Essentials.Location wp1 = new Xamarin.Essentials.Location();
@@ -102,30 +108,30 @@ namespace App2
 
                 if (result != null)
                 {
-                    //if (result.Latitude.ToString() == "")
-                    //{
-                    //    TextView locationEnable = FindViewById<TextView>(Resource.Id.latPuller);
-                    //    locationEnable.Text = "Please turn on your location and restart the app - OS";
-                    //}
-                    //else
-                    //{
-                    //    //Log.Warn("location", $"Latitude:{result.Latitude}, Longitude:{result.Longitude}");
-                    //    TextView lat = FindViewById<TextView>(Resource.Id.latPuller);
-                    //    lat.Text = result.Latitude.ToString();
+                    if (result.Latitude.ToString() == "")
+                    {
+                        TextView locationEnable = FindViewById<TextView>(Resource.Id.latPuller);
+                        locationEnable.Text = "Please turn on your location and restart the app - OS";
+                    }
+                    else
+                    {
+                        //Log.Warn("location", $"Latitude:{result.Latitude}, Longitude:{result.Longitude}");
+                        TextView lat = FindViewById<TextView>(Resource.Id.latPuller);
+                        lat.Text = result.Latitude.ToString();
 
-                    //    TextView longitude = FindViewById<TextView>(Resource.Id.longPuller);
-                    //    longitude.Text = result.Longitude.ToString();
+                        TextView longitude = FindViewById<TextView>(Resource.Id.longPuller);
+                        longitude.Text = result.Longitude.ToString();
 
-                    //    TextView alt = FindViewById<TextView>(Resource.Id.altPuller);
-                    //    alt.Text = result.Altitude.ToString();
-                    //}
+                        TextView alt = FindViewById<TextView>(Resource.Id.altPuller);
+                        alt.Text = result.Altitude.ToString();
+                    }
                 }
             }
             catch
             {
                 //error?
-                //TextView locationEnable = FindViewById<TextView>(Resource.Id.latPuller);
-                //locationEnable.Text = "Please turn on your location and restart the app";
+                TextView locationEnable = FindViewById<TextView>(Resource.Id.latPuller);
+                locationEnable.Text = "Please turn on your location and restart the app";
             }
         }
 
@@ -151,18 +157,18 @@ namespace App2
             //btnshowPopup.Click += BtnshowPopup_Click;
 
 
-            //ImageView userHere = FindViewById<ImageView>(Resource.Id.youAreHere);
-            //ImageView userGoing = FindViewById<ImageView>(Resource.Id.hereYouGo);
-            //userHere.ScaleX = .10f;
-            //userHere.ScaleY = .10f;
-            //userGoing.ScaleX = .10f;
-            //userGoing.ScaleY = .10f;
+            ImageView userHere = FindViewById<ImageView>(Resource.Id.youAreHere);
+            ImageView userGoing = FindViewById<ImageView>(Resource.Id.hereYouGo);
+            userHere.ScaleX = .10f;
+            userHere.ScaleY = .10f;
+            userGoing.ScaleX = .10f;
+            userGoing.ScaleY = .10f;
 
             Spinner spinner = FindViewById<Spinner>(Resource.Id.spinner1);
 
             spinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner_ItemSelected);
             var adapter = ArrayAdapter.CreateFromResource(
-                    this, Resource.Array.planets_array, Android.Resource.Layout.SimpleSpinnerItem);
+                    this, Resource.Array.RoomsOnMap, Android.Resource.Layout.SimpleSpinnerItem);
 
             adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             spinner.Adapter = adapter;
@@ -173,7 +179,7 @@ namespace App2
         private void spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             Spinner spinner = (Spinner)sender;
-            string toast = string.Format("The planet is {0}", spinner.GetItemAtPosition(e.Position));
+            string toast = string.Format("The room is {0}", spinner.GetItemAtPosition(e.Position));
             Toast.MakeText(this, toast, ToastLength.Long).Show();
         }
 
@@ -184,11 +190,6 @@ namespace App2
         //popupDialog.Window.SetSoftInputMode(SoftInput.AdjustResize);
         //popupDialog.Show();
 
-        // Some Time Layout width not fit with windows size  
-        // but Below lines are not necessery  
-        //popupDialog.Window.SetLayout(LayoutParams.MatchParent, LayoutParams.WrapContent);
-        //popupDialog.Window.SetBackgroundDrawableResource(Android.Resource.Color.Transparent);
-
         // Access Popup layout fields like below  
         //btnPopupCancel = popupDialog.FindViewById<Button>(Resource.Id.btnCancel);
         //btnPopOk = popupDialog.FindViewById<Button>(Resource.Id.btnOk);
@@ -196,10 +197,6 @@ namespace App2
         // Events for that popup layout  
         //btnPopupCancel.Click += BtnPopupCancel_Click;
         //btnPopOk.Click += BtnPopOk_Click;
-
-        // Some Additional Tips   
-        // Set the dialog Title Property - popupDialog.Window.SetTitle("Alert Title");  
-        //}
 
         //private void BtnPopOk_Click(object sender, System.EventArgs e)
         //{
@@ -244,32 +241,32 @@ namespace App2
                 var location = Geolocation.GetLastKnownLocationAsync();
                 location.Wait();
                 var result = location.Result;
-                //if (result != null)
-                //{
-                //    TextView lat = FindViewById<TextView>(Resource.Id.latPuller);
-                //    if (result.Latitude.ToString() == "")
-                //    {
-                //        //TextView locationEnable = FindViewById<TextView>(Resource.Id.latPuller);
-                //        lat.Text = "Please turn on your location and restart the app - OR";
-                //    }
-                //    else
-                //    {
-                //        //Log.Warn("location", $"Latitude:{result.Latitude}, Longitude:{result.Longitude}");
-                //        //TextView lat = FindViewById<TextView>(Resource.Id.latPuller);
-                //        lat.Text = result.Latitude.ToString();
+                if (result != null)
+                {
+                    TextView lat = FindViewById<TextView>(Resource.Id.latPuller);
+                    if (result.Latitude.ToString() == "")
+                    {
+                        //TextView locationEnable = FindViewById<TextView>(Resource.Id.latPuller);
+                        lat.Text = "Please turn on your location and restart the app - OR";
+                    }
+                    else
+                    {
+                        //Log.Warn("location", $"Latitude:{result.Latitude}, Longitude:{result.Longitude}");
+                        //TextView lat = FindViewById<TextView>(Resource.Id.latPuller);
+                        lat.Text = result.Latitude.ToString();
 
-                //        TextView longitude = FindViewById<TextView>(Resource.Id.longPuller);
-                //        longitude.Text = result.Longitude.ToString();
+                        TextView longitude = FindViewById<TextView>(Resource.Id.longPuller);
+                        longitude.Text = result.Longitude.ToString();
 
-                //        TextView alt = FindViewById<TextView>(Resource.Id.altPuller);
-                //        alt.Text = result.Altitude.ToString();
-                //    }
-                //}
+                        TextView alt = FindViewById<TextView>(Resource.Id.altPuller);
+                        alt.Text = result.Altitude.ToString();
+                    }
+                }
             }
             catch
             {
-                //TextView locationEnable = FindViewById<TextView>(Resource.Id.latPuller);
-                //locationEnable.Text = "Please turn on your location and restart the app";
+                TextView locationEnable = FindViewById<TextView>(Resource.Id.latPuller);
+                locationEnable.Text = "Please turn on your location and restart the app";
             }
         }
 
