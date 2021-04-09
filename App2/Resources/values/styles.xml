@@ -19,13 +19,13 @@
 
   <string name="room_prompt">Choose a Room</string>
   <string-array name="RoomsOnMap">
-    <item>"3107"</item>
-    <item>"3147"</item>
-    <item>Zimmer</item>
+    <item>"Room 3107"</item>
+    <item>"Room 3147"</item>
+    <item>"Dr. Zimmer's Office"</item>
     <item>"Computer Lab"</item>
     <item>"Sculpture/3-D"</item>
-    <item>"3122"</item>
-    <item>"Price"</item>
+    <item>"Room 3122"</item>
+    <item>"Professor Price's Office"</item>
   </string-array>
 
 </resources>
