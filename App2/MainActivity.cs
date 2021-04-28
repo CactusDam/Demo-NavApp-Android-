@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
@@ -13,6 +15,7 @@ using AndroidX.AppCompat.App;
 using AndroidX.AppCompat.Widget;
 using AndroidX.Core.View;
 using AndroidX.DrawerLayout.Widget;
+using App2.Models;
 using Google.Android.Material.FloatingActionButton;
 using Google.Android.Material.Navigation;
 using Google.Android.Material.Snackbar;
@@ -32,161 +35,12 @@ namespace App2
         public Xamarin.Essentials.Location destination = new Xamarin.Essentials.Location();
         public Xamarin.Essentials.Location currLoc = new Xamarin.Essentials.Location();
         List<Room_Coor> listORooms = new List<Room_Coor>();
+        public int screenLat;
+        public int screenLon;
+        public int level = 0;
+        Button levelClicker;
         //TODO: adjust points to where the user is
         //actually navigate
-
-        protected override void OnStart()
-        {
-            base.OnStart();
-
-            //try doing math by hand then program
-            Room_Coor rc = new Room_Coor();
-            Xamarin.Essentials.Location item = new Xamarin.Essentials.Location();
-            item.Latitude = 39.0226;
-            item.Longitude = -84.5681;
-            rc.RealLatitude = item.Latitude;
-            rc.RealLongitude = item.Longitude;
-            rc.screenLatitude = -150;
-            rc.screenLongitude = 1300;
-            rc.name = "Room 3107";
-            Rooms.Add(item);
-            listORooms.Add(rc);
-            Room_Coor rc1 = new Room_Coor();
-            Xamarin.Essentials.Location item1 = new Xamarin.Essentials.Location();
-            item1.Latitude = 39.0227;
-            item1.Longitude = -84.5681;
-            rc1.RealLatitude = item1.Latitude;
-            rc1.RealLongitude = item1.Longitude;
-            rc1.name = "Room 3147";
-            rc1.screenLatitude=300;
-            rc1.screenLongitude = 1350;
-            listORooms.Add(rc1);
-            Rooms.Add(item1);
-            Room_Coor rc2 = new Room_Coor();
-            Xamarin.Essentials.Location item2 = new Xamarin.Essentials.Location();
-            item2.Latitude = 39.0226;
-            item2.Longitude = -84.568378;
-            rc2.RealLatitude = item2.Latitude;
-            rc2.RealLongitude = item2.Longitude;
-            rc2.name = "Dr. Zimmer's Office";
-            rc2.screenLatitude = 300;
-            rc2.screenLongitude = 400;
-            listORooms.Add(rc2);
-            Rooms.Add(item2);
-            Room_Coor rc3 = new Room_Coor();
-            Xamarin.Essentials.Location item3 = new Xamarin.Essentials.Location();
-            item3.Latitude = 39.0226;
-            item3.Longitude = -84.56840;
-            rc3.RealLatitude = item3.Latitude;
-            rc3.RealLongitude = item3.Longitude;
-            rc3.name = "Computer Lab";
-            rc3.screenLatitude = 300;
-            rc3.screenLongitude = -50;
-            listORooms.Add(rc3);
-            Rooms.Add(item3);
-            Room_Coor rc4 = new Room_Coor();
-            Xamarin.Essentials.Location item4 = new Xamarin.Essentials.Location();
-            item4.Latitude = 39.0226;
-            item4.Longitude = -84.56840;
-            rc4.RealLatitude = item4.Latitude;
-            rc4.RealLongitude = item4.Longitude;
-            rc4.name = "Sculpture/3-D";
-            rc4.screenLatitude = 0;
-            rc4.screenLongitude = 750;
-            listORooms.Add(rc4);
-            Rooms.Add(item4);
-            Room_Coor rc5 = new Room_Coor();
-            Xamarin.Essentials.Location item5 = new Xamarin.Essentials.Location();
-            item5.Latitude = 39.022429;
-            item5.Longitude = -84.5683206;
-            rc5.RealLatitude = item5.Latitude;
-            rc5.RealLongitude = item5.Longitude;
-            rc5.name = "Room 3122";
-            rc5.screenLatitude = 300;
-            rc5.screenLongitude = -250;
-            listORooms.Add(rc5);
-            Room_Coor rc6 = new Room_Coor();
-            Xamarin.Essentials.Location item6 = new Xamarin.Essentials.Location();
-            item6.Latitude = 39.02329186;
-            item6.Longitude = -84.5681324;
-            rc6.RealLatitude = item4.Latitude;
-            rc6.RealLongitude = item4.Longitude;
-            rc6.name = "Professor Price's Office";
-            rc6.screenLatitude = 400;
-            rc6.screenLongitude = 1600;
-            listORooms.Add(rc6);
-
-            //theta
-            Xamarin.Essentials.Location wp1 = new Xamarin.Essentials.Location();
-            wp1.Latitude = 39.0224095;
-            wp1.Longitude = -84.56834;
-            //eta
-            Xamarin.Essentials.Location wp2 = new Xamarin.Essentials.Location();
-            wp2.Latitude = 39.0226994;
-            wp2.Longitude = -84.568407;
-            //beta
-            Xamarin.Essentials.Location wp3 = new Xamarin.Essentials.Location();
-            wp3.Latitude = 39.022888;
-            wp3.Longitude = -84.56825;
-            //gamma
-            Xamarin.Essentials.Location wp4 = new Xamarin.Essentials.Location();
-            wp4.Latitude = 39.0227819;
-            wp4.Longitude = -84.568301;
-            //alpha
-            Xamarin.Essentials.Location wp5 = new Xamarin.Essentials.Location();
-            wp5.Latitude = 39.02283444;
-            wp5.Longitude = -84.568239;
-            //delta
-            Xamarin.Essentials.Location wp6 = new Xamarin.Essentials.Location();
-            wp6.Latitude = 39.0221145;
-            wp6.Longitude = -84.56805;
-            //epsilon - location updated with 3-26 mapping
-            Xamarin.Essentials.Location wp7 = new Xamarin.Essentials.Location();
-            wp7.Latitude = 39.02268447;
-            wp7.Longitude = -84.5682627;
-            //zeta
-            Xamarin.Essentials.Location wp8 = new Xamarin.Essentials.Location();
-            wp8.Latitude = 39.022600494;
-            wp8.Longitude = -84.5684017;
-            //iota
-            Xamarin.Essentials.Location wp9 = new Xamarin.Essentials.Location();
-            wp9.Latitude = 39.022519510;
-            wp9.Longitude = -84.56840749;
-
-            try
-            {
-                var location = Geolocation.GetLastKnownLocationAsync();
-                location.Wait();
-                var result = location.Result;
-
-                if (result != null)
-                {
-                    if (result.Latitude.ToString() == "")
-                    {
-                        TextView locationEnable = FindViewById<TextView>(Resource.Id.latPuller);
-                        locationEnable.Text = "Please turn on your location and restart the app - OS";
-                    }
-                    else
-                    {
-                        //Log.Warn("location", $"Latitude:{result.Latitude}, Longitude:{result.Longitude}");
-                        TextView lat = FindViewById<TextView>(Resource.Id.latPuller);
-                        lat.Text = result.Latitude.ToString();
-
-                        TextView longitude = FindViewById<TextView>(Resource.Id.longPuller);
-                        longitude.Text = result.Longitude.ToString();
-
-                        TextView alt = FindViewById<TextView>(Resource.Id.altPuller);
-                        alt.Text = result.Altitude.ToString();
-                    }
-                }
-            }
-            catch
-            {
-                //error?
-                TextView locationEnable = FindViewById<TextView>(Resource.Id.latPuller);
-                locationEnable.Text = "Please turn on your location and restart the app";
-            }
-        }
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -206,21 +60,33 @@ namespace App2
 
             NavigationView navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
             navigationView.SetNavigationItemSelectedListener(this);
-            //btnshowPopup = FindViewById<Button>(Resource.Id.btnPopup);
-            //btnshowPopup.Click += BtnshowPopup_Click;
 
 
             Button userHere = FindViewById<Button>(Resource.Id.youAreHere);
             Button userGoing = FindViewById<Button>(Resource.Id.hereYouGo);
-            //userHere.ScaleX = .10f;
-            //userHere.ScaleY = .10f;
-            //userGoing.ScaleX = .10f;
-            //userGoing.ScaleY = .10f;
+            Button LevelNav = FindViewById<Button>(Resource.Id.levelSelect);
+            LevelNav.SetX(1100);
+            LevelNav.SetY(0);
+            
+            
             TextView alt = FindViewById<TextView>(Resource.Id.latPuller);
             TextView alt2 = FindViewById<TextView>(Resource.Id.longPuller);
+            alt.SetX(400);
+            alt.SetY(1000);
+            alt2.SetY(1100);
+            alt2.SetX(400);
 
+            madeRooms mr = new madeRooms();
+            mr.main();
+            waypoints = mr.waypoints;
+            Rooms = mr.GetRooms();
+            listORooms = mr.Get_Room_Coordinates();
 
+            levelClicker = FindViewById<Button>(Resource.Id.levelSelect);
             Spinner spinner = FindViewById<Spinner>(Resource.Id.spinner1);
+
+            TextView tv1 = FindViewById<TextView>(Resource.Id.textView1);
+            tv1.SetY(1000);
 
             spinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner_ItemSelected);
             var adapter = ArrayAdapter.CreateFromResource(
@@ -228,7 +94,7 @@ namespace App2
 
             adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             spinner.Adapter = adapter;
-            
+            InitialCalc();
             StartListening();
         }
 
@@ -245,8 +111,8 @@ namespace App2
                 string watcher = string.Format((string)spinner.GetItemAtPosition(e.Position));
                 if(coordinates.name==spinner.GetItemAtPosition(e.Position).ToString())
                 {
-                    //userGoing.SetX(coordinates.screenLatitude);
-                    //userGoing.SetY(coordinates.screenLongitude);
+                    userGoing.SetX(coordinates.screenLatitude);
+                    userGoing.SetY(coordinates.screenLongitude);
 
                     foreach(Room_Coor rc in listORooms)
                     {
@@ -258,7 +124,7 @@ namespace App2
                     }
                     List<Xamarin.Essentials.Location> Route = new List<Xamarin.Essentials.Location>();
                     Route = getRoute();
-                    Button button = FindViewById<Button>(Resource.Id.button1);
+                    //Button button = FindViewById<Button>(Resource.Id.button1);
                     foreach(Location wps in Route)
                     {
                         //button.SetX(0);
@@ -317,43 +183,6 @@ namespace App2
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
-        public void onResume()
-        {
-            Log.Info("test", "OR");
-
-            try
-            {
-                var location = Geolocation.GetLastKnownLocationAsync();
-                location.Wait();
-                var result = location.Result;
-                if (result != null)
-                {
-                    TextView lat = FindViewById<TextView>(Resource.Id.latPuller);
-                    if (result.Latitude.ToString() == "")
-                    {
-                        //TextView locationEnable = FindViewById<TextView>(Resource.Id.latPuller);
-                        lat.Text = "Please turn on your location and restart the app - OR";
-                    }
-                    else
-                    {
-                        //Log.Warn("location", $"Latitude:{result.Latitude}, Longitude:{result.Longitude}");
-                        //TextView lat = FindViewById<TextView>(Resource.Id.latPuller);
-                        lat.Text = result.Latitude.ToString();
-
-                        TextView longitude = FindViewById<TextView>(Resource.Id.longPuller);
-                        longitude.Text = result.Longitude.ToString();
-
-                        TextView alt = FindViewById<TextView>(Resource.Id.altPuller);
-                        alt.Text = result.Altitude.ToString();
-                    }
-                }
-            }
-            catch
-            {
-                TextView locationEnable = FindViewById<TextView>(Resource.Id.latPuller);
-                locationEnable.Text = "Please turn on your location and restart the app";
-            }
-        }
 
         private async Task StartListening()
         {
@@ -367,7 +196,6 @@ namespace App2
                 ListenForSignificantChanges = true,
                 PauseLocationUpdatesAutomatically = false
             });
-
             CrossGeolocator.Current.PositionChanged += Current_PositionChanged;
         }
 
@@ -375,9 +203,12 @@ namespace App2
         {
 
             var position = e.Position;
+            //SymbolMover(position.Latitude, position.Longitude);
+
             currLoc.Longitude = position.Longitude;
             currLoc.Latitude = position.Latitude;
             currLoc.Altitude = position.Altitude;
+
             var output = "Full: Lat: " + position.Latitude + " Long: " + position.Longitude;
             output += "\n" + $"Time: {position.Timestamp}";
             output += "\n" + $"Heading: {position.Heading}";
@@ -388,7 +219,6 @@ namespace App2
             Log.Info("loc", output);
             try
             {
-                InitialCalc();
                 var location = Geolocation.GetLastKnownLocationAsync();
                 location.Wait();
                 var result = location.Result;
@@ -404,24 +234,8 @@ namespace App2
                     TextView alt = FindViewById<TextView>(Resource.Id.altPuller);
                     alt.Text = result.Altitude.ToString();
 
-
-                    TextView cR = FindViewById<TextView>(Resource.Id.altimeter);
-                    DistanceUnits units = new DistanceUnits();
-                    var shortestDist = Xamarin.Essentials.Location.CalculateDistance(result, Rooms.First(), units);
-                    int place = 0;
-
-                    currLoc.Latitude = result.Latitude ;
+                    currLoc.Latitude = result.Latitude;
                     currLoc.Longitude = result.Longitude;
-                    foreach (Xamarin.Essentials.Location room in Rooms)
-                    {
-                        var dist = Xamarin.Essentials.Location.CalculateDistance(result, room, units);
-
-                        if (dist < shortestDist)
-                        {
-                            shortestDist = dist;
-                        }
-                        place++;
-                    }
                     SymbolMover(result.Latitude, result.Longitude);
                 }
             }
@@ -432,34 +246,175 @@ namespace App2
 
         }
 
-        public void SymbolMover(double lat, double longe)
+        public string closestRoom(Location result)
         {
-            //will change the positions of x and o
-            Button userHere = FindViewById<Button>(Resource.Id.youAreHere);
-            //know the xy of the rooms, use them to do lat1-lat2 and delta1-x2
-            //for every 1 degree, so many pixels
-            //lat difference divided by delta x
-            //long1-long2=y1-y2
-            //deltalong is y/longe
-            //use 0,0
-            userHere.SetX((int)lat);
-            userHere.SetY((int)longe);
+            TextView cR = FindViewById<TextView>(Resource.Id.altimeter);
+            DistanceUnits units = new DistanceUnits();
+            var shortestDist = Xamarin.Essentials.Location.CalculateDistance(result, Rooms.First(), units);
+            int place = 0;
+            string winner = "";
+            foreach (Room_Coor room in listORooms)
+            {
+                Location temp = new Location(room.RealLatitude, room.RealLongitude);
+                var dist = Xamarin.Essentials.Location.CalculateDistance(result, temp, units);
+
+                if (dist < shortestDist)
+                {
+                    shortestDist = dist;
+                    winner = room.name;
+                }
+                place++;
+            }
+            return winner;
+        }
+
+        public void SymbolMover(double lat, double longi)
+        {
+            Location result = new Location(lat, longi);
+            string closetoroom = closestRoom(result);
+            if (closetoroom != "")
+            {
+                foreach (Room_Coor room in listORooms)
+                {
+                    if (room.name == closetoroom)
+                    {
+                        screenLat = room.screenLatitude;
+                        screenLon = room.screenLongitude;
+                    }
+                }
+            }
+
+            if (currLoc.Latitude - lat >= .0001)
+            {
+                screenLat += 20;
+            }
+            else if (currLoc.Latitude - lat <= -.0001)
+            {
+                screenLat -= 20;
+            }
+            double temp = currLoc.Latitude - lat;
+            double temp2 = currLoc.Longitude - longi;
+            //do the same thing for longitude
+            if (currLoc.Longitude - longi <= .0001)
+            {
+                screenLon += 20;
+            }
+            else if (currLoc.Longitude - longi >= .0001)
+            {
+                screenLon -= 20;
+            }
+
+
+
+            //foreach (Room_Coor looking4matches in listORooms)
+            //{
+            //    if (looking4matches.RealLatitude == currLoc.Latitude || currLoc.CalculateDistance(looking4matches.RealLatitude, currLoc.Longitude, units: 0) < .0005)
+            //    {
+            //        //close to matching longitudes irl
+            //        screenLat = looking4matches.screenLatitude;
+            //        closetoroom = true;
+            //    }
+            //    else if (looking4matches.RealLongitude == currLoc.Longitude || currLoc.CalculateDistance(currLoc.Latitude, looking4matches.RealLongitude, units: 0) < .0005)
+            //    {
+            //        screenLon = looking4matches.screenLongitude;
+            //        closetoroom = true;
+            //    }
+            //    else { closetoroom = false; }
+            //}
+            Button user = FindViewById<Button>(Resource.Id.youAreHere);
+            user.SetX(screenLat);
+            user.SetY(screenLon);
         }
 
         public void InitialCalc()
         {
-            Room_Coor rc1 = listORooms.ElementAtOrDefault<Room_Coor>(0);
-            Room_Coor rc2 = listORooms.ElementAtOrDefault<Room_Coor>(1);
-            double xDelta = rc1.RealLatitude - rc2.RealLatitude;
-            double yDelta = rc1.RealLongitude - rc2.RealLongitude;
-            int ScreenX = (int)xDelta / 30;
-            int ScreenY = (int)yDelta / 30;
-            int cartesianx = Math.Abs(ScreenX - 800 / 2);
-            int cartesiany = Math.Abs(-ScreenY + 2200 / 2);
+            //basic is that .001 LAT = 500px
+            // --- long = ---px
+            try
+            {
+                var location = Geolocation.GetLastKnownLocationAsync();
+                location.Wait();
+                var result = location.Result;
+                if (result != null)
+                { 
+                    currLoc.Latitude = result.Latitude;
+                    currLoc.Longitude = result.Longitude;
+                }
+            }
+            catch
+            {
+            }
+            bool latMatch = false;
+            bool lonMatch = false;
 
+            double storedLat = 0;
+            double storedLon = 0;
+            foreach (Room_Coor looking4matches in listORooms)
+            {
+                if(looking4matches.RealLatitude==currLoc.Latitude)
+                {
+                    //close to matching longitudes irl
+                    screenLat = looking4matches.screenLatitude;
+                    latMatch = true;
+                }
+                else if(currLoc.CalculateDistance(looking4matches.RealLatitude, currLoc.Longitude, units: 0) < .0915
+                    &&latMatch!=true)
+                {
+                    screenLat = looking4matches.screenLatitude;
+                }
+                if(looking4matches.RealLongitude==currLoc.Longitude)
+                {
+                    screenLon = looking4matches.screenLongitude;
+                    lonMatch = true;
+                }
+                else if(currLoc.CalculateDistance(currLoc.Latitude, looking4matches.RealLongitude, units: 0) < .0005
+                    &&lonMatch==false)
+                {
+                    if(currLoc.CalculateDistance(currLoc.Latitude, looking4matches.RealLongitude, units:0)<
+                        currLoc.CalculateDistance(currLoc.Latitude, storedLon, units:0))
+                    {
+                        screenLon = looking4matches.screenLongitude;
+                        storedLon = looking4matches.RealLongitude;
+                    }
+                }
+            }
             Button userLoc = FindViewById<Button>(Resource.Id.youAreHere);
-            userLoc.SetX(5000);
-            userLoc.SetY(50000);
+            userLoc.SetX(screenLat);
+            userLoc.SetY(screenLon);
+        }
+
+        async void OnButtonClicked(object sender, EventArgs args)
+        {
+            ImageView iv = FindViewById<ImageView>(Resource.Id.backgroundImage);
+
+            iv.SetImageDrawable(drawable: (Android.Graphics.Drawables.Drawable)Resource.Drawable.midfloor);
+
+        }
+        public string LevelSelect()
+        {
+
+            ImageView iv = FindViewById<ImageView>(Resource.Id.backgroundImage);
+            if(level<3)
+            {
+                level++;
+                if(level==1)
+                {
+                    //midfloor
+                    iv.SetImageDrawable(drawable: (Android.Graphics.Drawables.Drawable)Resource.Drawable.midfloor);
+                }
+                if(level==2)
+                {
+                    //topfloor
+                    iv.SetImageDrawable(drawable: (Android.Graphics.Drawables.Drawable)Resource.Drawable.topFloor);
+                }
+            }
+            else if(level==3)
+            {
+                level = 0;
+                //limitedmap
+                iv.SetImageDrawable(drawable: (Android.Graphics.Drawables.Drawable)Resource.Drawable.limitedMap);
+            }
+            return "selected";
         }
 
         public override void OnBackPressed()
@@ -475,61 +430,61 @@ namespace App2
             }
         }
 
-        public override bool OnCreateOptionsMenu(IMenu menu)
-        {
-            MenuInflater.Inflate(Resource.Menu.menu_main, menu);
-            return true;
-        }
+        //public override bool OnCreateOptionsMenu(IMenu menu)
+        //{
+        //    //MenuInflater.Inflate(Resource.Menu.menu_main, menu);
+        //    return true;
+        //}
 
-        public override bool OnOptionsItemSelected(IMenuItem item)
-        {
-            int id = item.ItemId;
-            if (id == Resource.Id.action_settings)
-            {
-                return true;
-            }
+        //public override bool OnOptionsItemSelected(IMenuItem item)
+        //{
+        //    int id = item.ItemId;
+        //    if (id == Resource.Id.action_settings)
+        //    {
+        //        return true;
+        //    }
 
-            return base.OnOptionsItemSelected(item);
-        }
+        //    return base.OnOptionsItemSelected(item);
+        //}
 
         private void FabOnClick(object sender, EventArgs eventArgs)
         {
-            View view = (View)sender;
-            Snackbar.Make(view, "Replace with your own action", Snackbar.LengthLong)
-                .SetAction("Action", (Android.Views.View.IOnClickListener)null).Show();
+            //View view = (View)sender;
+            //Snackbar.Make(view, "Replace with your own action", Snackbar.LengthLong)
+                //.SetAction("Action", (Android.Views.View.IOnClickListener)null).Show();
         }
 
         public bool OnNavigationItemSelected(IMenuItem item)
         {
             int id = item.ItemId;
 
-            if (id == Resource.Id.nav_camera)
-            {
-                // Handle the camera action
-            }
-            else if (id == Resource.Id.nav_gallery)
-            {
+            //if (id == Resource.Id.nav_camera)
+            //{
+            //    // Handle the camera action
+            //}
+            //else if (id == Resource.Id.nav_gallery)
+            //{
 
-            }
-            else if (id == Resource.Id.nav_slideshow)
-            {
+            //}
+            //else if (id == Resource.Id.nav_slideshow)
+            //{
 
-            }
-            else if (id == Resource.Id.nav_manage)
-            {
+            //}
+            //else if (id == Resource.Id.nav_manage)
+            //{
 
-            }
-            else if (id == Resource.Id.nav_share)
-            {
+            //}
+            //else if (id == Resource.Id.nav_share)
+            //{
 
-            }
-            else if (id == Resource.Id.nav_send)
-            {
+            //}
+            //else if (id == Resource.Id.nav_send)
+            //{
 
-            }
+            //}
 
-            DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-            drawer.CloseDrawer(GravityCompat.Start);
+            //DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+            //drawer.CloseDrawer(GravityCompat.Start);
             return true;
         }
 
